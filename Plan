@@ -8,7 +8,8 @@ After filterChain.doFilter is called it's too late to do anything with the respo
 put responseWrapper.addHeader("Access-Control-Allow-Origin", "http://localhost:3000"); before     filterChain.doFilter(requestWrapper, responseWrapper);
 
 Unexpected end of JSON input!,Resolved [org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError);
-nested exception is com.fasterxml.jackson.databind.JsonMappingException: Infinite recursion (StackOverflowError) (through reference chain: com.eventsRecommendation.eventsdemo.entity.Item["categories"]->java.util.HashSet[0]->com.eventsRecommendation.eventsdemo.entity.Category["item"]->com.eventsRecommendation.eventsdemo.entity.Item["categories"]->java.util.HashSet[0]->com.eventsRecommendation.eventsdemo.entity.Category["item"]->com.eventsRecommendation.eventsdemo.entity.Item["categories"]
+nested exception is com.fasterxml.jackson.databind.JsonMappingException: Infinite recursion (StackOverflowError)
+(through reference chain: com.eventsRecommendation.eventsdemo.entity.Item["categories"]->java.util.HashSet[0]->com.eventsRecommendation.eventsdemo.entity.Category["item"]->com.eventsRecommendation.eventsdemo.entity.Item["categories"]->java.util.HashSet[0]->com.eventsRecommendation.eventsdemo.entity.Category["item"]->com.eventsRecommendation.eventsdemo.entity.Item["categories"]
 
 param of email does not exist: FE pass the param as body, but BE get them from @RequestParam
 change RequestParam to RequestBody and create the LoginRequestPresentation
@@ -22,7 +23,7 @@ This generic filter base class has no dependency on the Spring org.springframewo
 A filter is instantiated by the servlet container so @Autowired is useless.
 】web应用启动的顺序是：listener->filter->servlet
 
-likeItem: did not save in the joint table "history" (debug with printing the sql to console)
+likeItem: did not save in the joint table "history" (!!!!!!debug with printing the sql to console, check stackoverlow)
 Because: you should definitely redesign your relations.
 Without even getting into the problems with your current save scenario, with bidirectional @ManyToMany + CascadeType.ALL, you're destined to get even more troubles.
 For example, deleting one bus will due to cascade, delete all its drivers, which due to cascade again, will delete all its buses.

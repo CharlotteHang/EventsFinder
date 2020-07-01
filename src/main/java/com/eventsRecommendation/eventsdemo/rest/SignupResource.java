@@ -1,6 +1,7 @@
 package com.eventsRecommendation.eventsdemo.rest;
 
 
+import java.util.regex.Pattern;
 import com.eventsRecommendation.eventsdemo.service.SignupService;
 import lombok.Builder;
 import lombok.Data;

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Map<Class<?>, HttpStatus> STATUS_CODES = ImmutableMap.of(
             MissingParameterException.class, HttpStatus.BAD_REQUEST,
+            InvalidEmailException.class, HttpStatus.BAD_REQUEST,
             NotAuthorizedException.class, HttpStatus.UNAUTHORIZED
     );
 

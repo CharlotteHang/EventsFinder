@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import com.eventsRecommendation.eventsdemo.entity.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,10 +28,10 @@ public class UserDao {
         return getUser(email) != null;
     }
 
-    public User verifyLogin(String email, String password) {
+    public User verifyLogin(String email, String hash) {
         User user = getUser(email);
 
-        if(user != null  && user.getPassword().equals(password)) return user;
+        if(user != null  && validatePassword(user.getPassword(), hash)) return user;
         return null;
     }
 
@@ -41,6 +42,14 @@ public class UserDao {
         List<User> users =  query.list();
         if(users == null || users.size() == 0) return null;
         else return users.get(0);
+    }
+
+    private boolean validatePassword(String password, String hash) {
+        if (!hash.startsWith("$2a$")) {
+            return false;
+        }
+
+        return BCrypt.checkpw(new String(password), hash);
     }
 
 }
